@@ -1,4 +1,17 @@
-apiVersion:
+# A: Api Version (Get from API docs website)
+# K: Kind (kubectl api-resources, )
+# M: Metadata (kubectl explain pod.metadata)
+# S: Spec (kubectl explain pod.spec, kubectl explain pod.spec | grep -i required)
+
+apiVersion: v1
 kind: Pod
 metadata:
-spec: 
+  name: vote
+  labels:
+    app: python
+    role: vote
+    version: v1
+spec:
+  containers:
+    - name: app
+      image: schoolofdevops/vote:v1

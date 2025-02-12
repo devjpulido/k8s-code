@@ -1,3 +1,5 @@
+### Min 47:38
+
 ### Install-Docker
 # Add Docker's official GPG key:
 sudo apt-get update
