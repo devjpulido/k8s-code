@@ -10,6 +10,9 @@ spec:
   containers:
     - name: db
       image: postgres:9.4
+      env:
+        - name: POSTGRES_PASSWORD
+          value: trust
       ports:
         - containerPort: 5432
       volumeMounts:
