@@ -1,11 +1,18 @@
-apiVersion: xxx
-kind: xxx
+apiVersion: apps/v1
+kind: ReplicaSet
 metadata:
-  name: xxx 
+  name: vote 
   labels:
     role: vote
 spec:
-  xxx 
+  replicas: 2
+  selector: 
+    matchLabels:
+      app: python
+      role: vote
+    matchExpressions:
+      - key: version
+        operator: Exists
   template: 
     metadata:
       name: vote 

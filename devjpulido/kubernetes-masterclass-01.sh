@@ -45,3 +45,31 @@ kind create cluster --config kind-three-node-cluster.yaml
 # Install Kube Ops View
 git clone  https://github.com/schoolofdevops/kube-ops-view
 kubectl apply -f kube-ops-view/deploy/
+
+
+
+### kubectl commands
+# Get contextes
+# kubectl config get-contexts
+
+# Set namespace on context
+# kubectl config set-context --current --namespace=default
+
+# List namespaces
+# kubectl get ns
+
+# Create a namespace
+kubectl create namespace instavote
+
+
+## ReplicaSet
+
+# replicas: HA
+kubectl get pods
+kubectl delete pods vote-xxxx vote-yyyy
+
+# selector: Scalability
+kubectl scale rs vote --replicas=8
+kubectl get pods --show-labels
+
+## Service: Load balances of pods
