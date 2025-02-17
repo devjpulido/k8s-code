@@ -1,4 +1,4 @@
-### Min 47:38
+### Min 53:00
 
 ### Install-Docker
 # Add Docker's official GPG key:
@@ -49,20 +49,28 @@ kubectl apply -f kube-ops-view/deploy/
 
 
 ### kubectl commands
-# Get contextes
-# kubectl config get-contexts
 
-# Set namespace on context
-# kubectl config set-context --current --namespace=default
-
-# List namespaces
-# kubectl get ns
-
-# Create a namespace
+## Namespaces
+kubectl get ns
 kubectl create namespace instavote
+kubectl get ns
+
+## Contexts
+kubectl config --help
+kubectl config get-contexts
+kubectl config current-context
+kubectl config set-context --help
+kubectl config set-context --current --namespace=instavote
+kubectl config get-contexts
+kubectl config view
+
+kubectl config set-context --current --namespace=default
+kubectl config set-context --current --namespace=kube-system
+kubectl config set-context --current --namespace=instavote
 
 
 ## ReplicaSet
+kubectl apply -f vote-rs.yaml
 
 # replicas: HA
 kubectl get pods
@@ -73,3 +81,7 @@ kubectl scale rs vote --replicas=8
 kubectl get pods --show-labels
 
 ## Service: Load balances of pods
+kubectl apply -f vote-svc.yaml --dry-run
+kubectl apply -f vote-svc.yaml
+kubectl get svc
+kubectl describe service vote
