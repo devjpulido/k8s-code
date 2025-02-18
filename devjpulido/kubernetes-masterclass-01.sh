@@ -70,18 +70,39 @@ kubectl config set-context --current --namespace=instavote
 
 
 ## ReplicaSet
+cd k8s-code/projects/instavote/dev/
 kubectl apply -f vote-rs.yaml
+
+# selector: Scalability
+kubectl scale rs vote --replicas=4
+kubectl get pods --show-labels
 
 # replicas: HA
 kubectl get pods
 kubectl delete pods vote-xxxx vote-yyyy
 
-# selector: Scalability
-kubectl scale rs vote --replicas=8
-kubectl get pods --show-labels
+
 
 ## Service: Load balances of pods
-kubectl apply -f vote-svc.yaml --dry-run
+kubectl apply -f vote-svc.yaml --dry-run=client
 kubectl apply -f vote-svc.yaml
 kubectl get svc
 kubectl describe service vote
+
+# Explore iptables
+docker exec -it --privileged kind-worker2 sh
+iptables -nvL -t nat  
+iptables -nvL -t nat  | grep 30000
+iptables -nvL -t nat  | grep KBRHWPABPD6YOBY7  -A 3
+
+
+## Expose External IPS
+# Add externalIPs:
+#   - xx.xx.xx.xx
+#   - yy.yy.yy.yy
+kubectl  get svc
+kubectl apply -f vote-svc.yaml
+kubectl  get svc
+kubectl describe svc vote
+
+## Apply redis
